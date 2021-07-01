@@ -33,7 +33,7 @@ class FaceDetection:
 
 		#===================================================================
 		# Print the number of faces found
-		print('Faces found: ', len(self.faces))
+		# print('Faces found: ', len(self.faces))
 		
 		
 		# Go over list of faces and draw them as rectangles on original colored

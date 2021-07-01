@@ -260,10 +260,15 @@ cursor = connection.cursor()
 subjects = ["", "Richik_Majumder", "Somhita_Majumder"]
 
 # Load test images
-#test_img1 = cv2.imread("test-data/test1.jpg")
-#test_img2 = cv2.imread("test-data/test2.jpg")
-test_img1 = cv2.imread('../test-data/s1/opencv_frame_0.png')
+# Positive cases
+#test_img1 = cv2.imread('../test-data/s1/opencv_frame_0.png')
+#test_img1 = cv2.imread('../test-data/s1/opencv_frame_3.png')
 
+# Negative cases
+#test_img1 = cv2.imread('C:/Users/RiM/Downloads/Wallpapers/red_mountains.jpg')
+#test_img1 = cv2.imread('C:/Users/RiM/OneDrive/Pictures/Camera Roll/false_test.jpg')
+
+test_img1 = cv2.imread('../test-data/s1/opencv_frame_0.png')
 
 #perform a prediction
 predicted_img1 = predict(test_img1, subjects)

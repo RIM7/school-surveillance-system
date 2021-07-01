@@ -1,60 +1,40 @@
 import cv2
 import numpy as np
 
-from data_preparation import DataPreparation
-from model import FaceRecogniser
-from prediction import Prediction
+
+from util import register_person, seek_entry
+
+
 
 if __name__=='__main__':
-	
-	# Data will be in two lists of same size: 
-	# 	1. all the faces
-	#	2. labels for each face
-	print("Preparing data...")
 
-	# print( prepare_training_data("D:/Project/training-data") )
-	faces, labels = DataPreparation().data_preparation("../training-data")
-	print("Data prepared")
+	# seek_entry('parent')
 
-	#print total faces and labels
-	print("Total faces: ", len(faces))
-	print("Total labels: ", len(labels))
+	while True:
+		choice = input('Enter your choice:\n\t1. Register yourself.\n\t2. Seek entry.\n\t3. Exit.\n')
+		if choice == '3':
+			print('Program end.')
+			break
 
+		elif choice == '1':
+			parent_or_student = input('Choose your identity:\n\t1. Register as a parent.\n\t2. Register as a student.\n\t3. Exit.\n')
 
-	face_recognizer = FaceRecogniser().create_model()
+			if parent_or_student == '1':
+				register_person('parent')
+			elif parent_or_student == '2':
+				register_person('student')
+			else:
+				break
 
-	# Train
-	face_recognizer.train(faces, np.array(labels))
+		elif choice == '2':
+			parent_or_student = input('Choose your identity:\n\t1. Enter as a parent.\n\t2. Enter as a student.\n\t3. Exit.\n')
 
+			if parent_or_student == '1':
+				seek_entry('Parent')
+			elif parent_or_student == '2':
+				seek_entry('Student')
+			else:
+				break
 
-
-
-
-
-	# Prediction
-	# Read from a file all the person's name and store it in subjects list.
-	subjects = ["", "Richik_Majumder", "Somhita_Majumder"]
-
-
-
-
-
-
-
-	# Load test images
-	test_img1 = cv2.imread('../test-data/s1/opencv_frame_0.png')
-
-	#perform a prediction
-	predicted_img = Prediction().predict(test_img1, subjects, face_recognizer)
-
-	if predicted_img == None:
-		print("Multiple faces detected. Can't recognize parent or child.")
-	else:
-		print("Prediction complete")
-
-		print('Showing Images')
-		cv2.imshow(subjects[1], predicted_img1)
-		cv2.waitKey(0)
-		cv2.destroyAllWindows()
-
-		print(':( ?')
+		else:
+			break
