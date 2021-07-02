@@ -220,30 +220,35 @@ def seek_entry(identity):
 
 	test_img1 = cv2.imread('opencv_frame_{}.png'.format(img_counter-1))
 
-	# Perform a prediction
-	predicted_img, label_text = Prediction().predict(test_img1, subjects, face_recognizer, identity)
+	try:
+		# Perform a prediction
+		predicted_img, label_text = Prediction().predict(test_img1, subjects, face_recognizer, identity)
 
-	#print( 'predicted_img: \n', predicted_img ) 
+		# print( 'predicted_img: \n', predicted_img ) 
 
-	if label_text == None:
-		print('No matches found.')
-	else:
-		try:
-			if predicted_img == None:
-				print('Face did not match.')
-			elif predicted_img.all() == None:
-				print("No face detected. Can't recognize parent or child.")
-			else:
+		if label_text == None:
+			print('No matches found.')
+		else:
+			try:
+				if predicted_img == None:
+					print('Face did not match.')
+				elif predicted_img.all() == None:
+					print("No face detected. Can't recognize parent or child.")
+				else:
+					print("Prediction complete")
+					print('Showing Image')
+					cv2.imshow(subjects[label], predicted_img); cv2.waitKey(0); cv2.destroyAllWindows()
+					print(':) ?')
+			except:
 				print("Prediction complete")
+
 				print('Showing Image')
-				cv2.imshow(subjects[label], predicted_img); cv2.waitKey(0); cv2.destroyAllWindows()
-				print(':) ?')
-		except:
-			print("Prediction complete")
+				cv2.imshow(label_text, predicted_img)
+				cv2.waitKey(0)
+				cv2.destroyAllWindows()
 
-			print('Showing Image')
-			cv2.imshow(label_text, predicted_img)
-			cv2.waitKey(0)
-			cv2.destroyAllWindows()
+				#print(':) ?')
 
-			#print(':) ?')
+
+	except TypeError:
+		print('No faces detected.')
